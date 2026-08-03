@@ -1,0 +1,45 @@
+{
+  "name": "ascii-forge",
+  "version": "0.1.0",
+  "description": "ASCII Art & Terminal Banner Studio CLI for Developers & READMEs by abteilung83",
+  "main": "dist/index.js",
+  "bin": {
+    "ascii-forge": "dist/index.js",
+    "asciiforge": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "cli",
+    "ascii",
+    "ascii-art",
+    "figlet",
+    "banner",
+    "terminal",
+    "abteilung83"
+  ],
+  "author": "abteilung83",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.0.0",
+    "figlet": "^1.7.0",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "@types/node-fetch": "^2.6.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
