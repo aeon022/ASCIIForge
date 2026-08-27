@@ -14,16 +14,16 @@
                                            /____/       
 ```
 
-**ASCIIForge** is a zero-dependency CLI tool engineered by **abteilung83**. It converts text strings and headers into stunning **ASCII art banners**, **ANSI-colored terminal text**, and **formatted code comment blocks** for TypeScript, Python, HTML, Rust, and C++ source files.
+**ASCIIForge** is a lightweight CLI tool engineered by **abteilung83**. It converts text strings and headers into stunning **ASCII art banners**, **ANSI-colored terminal text**, and **formatted code comment blocks** for TypeScript, Python, HTML, Rust, and C++ source files.
 
 ---
 
 ## ✨ Features
 
-- 🔤 **20+ ASCII Fonts**: Includes popular fonts like `Slant`, `Standard`, `Block`, `ANSI Shadow`, `3D-ASCII`, `Star Wars`.
+- 🔤 **300+ ASCII Fonts**: Powered by FIGlet's full bundled font library — includes popular picks like `Slant`, `Standard`, `Block`, `ANSI Shadow`, `3D-ASCII`, `Star Wars`, and hundreds more (run `ascii-forge fonts` for the full list).
 - 🌈 **8 ANSI Color Presets**: `neon`, `fire`, `cyan`, `magenta`, `green`, `yellow`, `red`, `plain`.
 - 💬 **Code Comment Block Generator**: Wraps ASCII banners in valid source code comments (`/* ... */`, `"""..."""`, `<!-- ... -->`).
-- 🚀 **Zero Dependencies**: Blazing fast rendering in under 10 milliseconds.
+- 🚀 **Pure JS, No Native Dependencies**: No compiled/native modules to install — blazing fast rendering in under 10 milliseconds.
 - 🔑 **Polar.sh Pro License**: Unlock un-watermarked comments & custom font packs via Polar checkout.
 
 ---

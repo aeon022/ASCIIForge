@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import figlet from 'figlet';
 import { renderAsciiText, applyColorPreset } from './textBanner';
 import { wrapInCodeComment } from './commentBox';
 import { validatePolarLicense, saveLicenseKey, clearSavedLicense, getSavedLicenseKey } from './license';
@@ -122,15 +123,12 @@ program
 // Fonts List Command
 program
   .command('fonts')
-  .description('List popular recommended FIGlet fonts')
+  .description('List all available FIGlet fonts')
   .action(() => {
-    console.log('\n🎨 Popular ASCIIForge Fonts:');
-    console.log('  - Slant (Default modern sleek)');
-    console.log('  - Standard (Classic bold)');
-    console.log('  - Block (Heavy 3D block text)');
-    console.log('  - ANSI Shadow (Retro shadow text)');
-    console.log('  - 3D-ASCII (3D outline style)');
-    console.log('  - Star Wars (Sci-fi styled font)\n');
+    const allFonts = figlet.fontsSync().sort((a, b) => a.localeCompare(b));
+    console.log(`\n🎨 ASCIIForge Fonts (${allFonts.length} available):\n`);
+    allFonts.forEach((font) => console.log(`  - ${font}`));
+    console.log('\nUse any of these with: ascii-forge text "Hello" -f "<font name>"\n');
   });
 
 // Demo Command
