@@ -36,7 +36,7 @@ npx github:aeon022/ASCIIForge demo
 To render a vibrant ASCII title banner for your CLI app:
 
 ```bash
-ascii-forge text "TermCast" --font slant --color neon
+ascii-forge text "ttyreel" --font slant --color neon
 ```
 
 ---

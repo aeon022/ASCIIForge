@@ -6,7 +6,7 @@
 
 ![ASCIIForge demo](docs/demo.svg)
 
-*Made with ASCIIForge and [TermCast](https://github.com/aeon022/TermCast).*
+*Made with ASCIIForge and [ttyreel](https://github.com/aeon022/ttyreel).*
 
 ```text
     ___   _____ ____________________                    
