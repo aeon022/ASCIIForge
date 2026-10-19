@@ -88,8 +88,10 @@ async function wizard() {
             }
             const text = await ask(t('Which text?', 'Welcher Text?'), 'Hello');
             const args = [{ b: 'text', c: 'comment', s: 'snippet', m: 'motd' }[n], text];
+            if (text.length > 12)
+                console.error(t('  Note: big letters are wide, so a long text gets wrapped into several lines. Short words look best.', '  Hinweis: Große Buchstaben sind breit, ein langer Text wird deshalb auf mehrere Zeilen umbrochen. Kurze Wörter sehen am besten aus.'));
             const font = await ask(t('Font (Enter = default, "random" = surprise me)', 'Schrift (Enter = Standard, "random" = Überraschung)'), 'Slant');
-            args.push('-f', font);
+            args.push('-f', font, '--width', String(Math.max(20, Math.min(100, (process.stdout.columns || 80) - 6))));
             if (n === 'b' || n === 'm')
                 args.push('-c', COLORS[await pick(t('Colour?', 'Farbe?'), COLORS)]);
             if (n === 'b') {
@@ -110,7 +112,7 @@ async function wizard() {
             run(args);
             const again = await ask(t('Make another one? (y/n)', 'Noch eins? (j/n)'), 'y');
             if (!/^[yj]/i.test(again))
-                return;
+                return void console.error(t('Bye! Run `asciiphreak wizard` any time.', 'Tschüss! `asciiphreak wizard` startet den Assistenten jederzeit wieder.'));
         }
     }
     catch (e) {
