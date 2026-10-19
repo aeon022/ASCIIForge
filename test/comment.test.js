@@ -20,7 +20,7 @@ test('html comments cannot be closed early, xml forbids double dashes', () => {
 test('hash, dash and slash styles', () => {
   assert.strictEqual(wrapInCodeComment('x\n y', 'python', false), '# x\n#  y\n');
   assert.strictEqual(wrapInCodeComment('x', 'sql', false), '-- x\n');
-  assert.strictEqual(wrapInCodeComment('x', 'sh', true), '# x\n# [Crafted with asciiglitch by abteilung83]\n');
+  assert.strictEqual(wrapInCodeComment('x', 'sh', true), '# x\n# [Crafted with asciiphreak by abteilung83]\n');
 });
 
 test('aliases resolve, unknown languages are an error that lists the supported ones', () => {

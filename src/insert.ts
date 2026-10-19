@@ -16,7 +16,7 @@ export interface InsertResult {
 
 /**
  * Puts a comment block into the text of a source file. With a tag the block is wrapped in two marker comments
- * (`asciiglitch:begin NAME` / `asciiglitch:end NAME`); running the command again replaces what is between the
+ * (`asciiphreak:begin NAME` / `asciiphreak:end NAME`); running the command again replaces what is between the
  * markers instead of adding a second banner. Without a tag the block is simply inserted. At the top, a
  * shebang line stays first.
  */
@@ -26,8 +26,8 @@ export function insertBlock(source: string, block: string, language: string, pos
   let text = body;
   if (tag) {
     if (!/^[A-Za-z0-9_.-]+$/.test(tag)) throw new Error(`Invalid --tag "${tag}": use letters, digits, dot, dash or underscore`);
-    const begin = lineComment(language, `asciiglitch:begin ${tag}`);
-    const end = lineComment(language, `asciiglitch:end ${tag}`);
+    const begin = lineComment(language, `asciiphreak:begin ${tag}`);
+    const end = lineComment(language, `asciiphreak:end ${tag}`);
     text = [begin, body, end].join(nl);
     const lines = source.split(/\r?\n/);
     const from = lines.findIndex((l) => l.trim() === begin);

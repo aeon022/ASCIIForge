@@ -58,8 +58,8 @@ test('config: validation, user then project precedence, nearest project file win
   const home = fs.mkdtempSync(path.join(os.tmpdir(), 'af-home-'));
   const proj = path.join(home, 'work', 'app', 'src');
   fs.mkdirSync(proj, { recursive: true });
-  fs.mkdirSync(path.join(home, '.config', 'asciiglitch'), { recursive: true });
-  fs.writeFileSync(path.join(home, '.config', 'asciiglitch', 'defaults.json'), JSON.stringify({ font: 'Big', color: 'cyan' }));
+  fs.mkdirSync(path.join(home, '.config', 'asciiphreak'), { recursive: true });
+  fs.writeFileSync(path.join(home, '.config', 'asciiphreak', 'defaults.json'), JSON.stringify({ font: 'Big', color: 'cyan' }));
   fs.writeFileSync(path.join(home, 'work', PROJECT_FILE), JSON.stringify({ color: 'fire', border: 'round' }));
   fs.writeFileSync(path.join(home, 'work', 'app', PROJECT_FILE), JSON.stringify({ border: 'double' }));
   assert.deepStrictEqual(loadDefaults(proj, home), { font: 'Big', color: 'cyan', border: 'double' });
@@ -75,10 +75,10 @@ test('insert: top (after a shebang), bottom, line, and tagged blocks are replace
   assert.strictEqual(insertBlock('', block, 'python').content, '# AB\n');
   const first = insertBlock('code\n', block, 'python', 'top', 'hero');
   assert.strictEqual(first.action, 'inserted');
-  assert.match(first.content, /^# asciiglitch:begin hero\n# AB\n# asciiglitch:end hero\ncode\n$/);
+  assert.match(first.content, /^# asciiphreak:begin hero\n# AB\n# asciiphreak:end hero\ncode\n$/);
   const again = insertBlock(first.content, wrapInCodeComment('CD', 'python', false), 'python', 'bottom', 'hero');
   assert.strictEqual(again.action, 'replaced');
-  assert.strictEqual(again.content, '# asciiglitch:begin hero\n# CD\n# asciiglitch:end hero\ncode\n');
+  assert.strictEqual(again.content, '# asciiphreak:begin hero\n# CD\n# asciiphreak:end hero\ncode\n');
   assert.strictEqual((again.content.match(/begin hero/g) || []).length, 1);
   assert.strictEqual(insertBlock('a\r\nb\r\n', block, 'python', 'bottom').content, 'a\r\nb\r\n# AB\r\n', 'line endings are kept');
   assert.throws(() => insertBlock('x', block, 'python', 'top', 'bad tag'), /Invalid --tag/);

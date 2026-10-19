@@ -17,7 +17,7 @@ export interface Defaults {
 const STRING_KEYS = ['font', 'color', 'language', 'align', 'border', 'layout'] as const;
 const NUMBER_KEYS = ['pad', 'width'] as const;
 
-export const PROJECT_FILE = '.asciiglitchrc.json';
+export const PROJECT_FILE = '.asciiphreakrc.json';
 
 export function parseDefaults(raw: any, file: string): Defaults {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error(`${file}: expected a JSON object`);
@@ -53,9 +53,9 @@ function readFile(file: string): Defaults | undefined {
   }
 }
 
-/** The user's defaults (~/.config/asciiglitch/defaults.json) overridden by the nearest project file walking up from `cwd`. */
+/** The user's defaults (~/.config/asciiphreak/defaults.json) overridden by the nearest project file walking up from `cwd`. */
 export function loadDefaults(cwd: string = process.cwd(), home: string = os.homedir()): Defaults {
-  const user = readFile(path.join(home, '.config', 'asciiglitch', 'defaults.json')) || {};
+  const user = readFile(path.join(home, '.config', 'asciiphreak', 'defaults.json')) || {};
   let dir = path.resolve(cwd);
   let project: Defaults = {};
   for (;;) {

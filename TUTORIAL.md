@@ -1,6 +1,6 @@
-# 🎨 asciiglitch — Comprehensive Tutorial & How-To Guide
+# 🎨 asciiphreak — Comprehensive Tutorial & How-To Guide
 
-Welcome to the **asciiglitch** tutorial! This guide covers real-world setup recipes, CLI commands, code comment generation, and font customization options.
+Welcome to the **asciiphreak** tutorial! This guide covers real-world setup recipes, CLI commands, code comment generation, and font customization options.
 
 ---
 
@@ -17,16 +17,16 @@ Welcome to the **asciiglitch** tutorial! This guide covers real-world setup reci
 
 ## 1. Quick Installation
 
-Install asciiglitch globally via npm:
+Install asciiphreak globally via npm:
 
 ```bash
-git clone https://github.com/aeon022/asciiglitch.git && cd asciiglitch && npm install --omit=dev && npm install -g .
+git clone https://github.com/aeon022/asciiphreak.git && cd asciiphreak && npm install --omit=dev && npm install -g .
 ```
 
 Or run via `npx`:
 
 ```bash
-npx github:aeon022/asciiglitch demo
+npx github:aeon022/asciiphreak demo
 ```
 
 ---
@@ -36,7 +36,7 @@ npx github:aeon022/asciiglitch demo
 To render a vibrant ASCII title banner for your CLI app:
 
 ```bash
-asciiglitch text "ttyreel" --font slant --color neon
+asciiphreak text "ttyreel" --font slant --color neon
 ```
 
 ---
@@ -47,17 +47,17 @@ You can generate valid comment blocks for your source code files in TypeScript, 
 
 ### TypeScript / JavaScript:
 ```bash
-asciiglitch comment "CORE UTILS" --language typescript
+asciiphreak comment "CORE UTILS" --language typescript
 ```
 
 ### Python (`""" ... """`):
 ```bash
-asciiglitch comment "DATA PIPELINE" --language python
+asciiphreak comment "DATA PIPELINE" --language python
 ```
 
 ### HTML (`<!-- ... -->`):
 ```bash
-asciiglitch comment "NAVIGATION" --language html
+asciiphreak comment "NAVIGATION" --language html
 ```
 
 ---
@@ -67,7 +67,7 @@ asciiglitch comment "NAVIGATION" --language html
 Save the plain ASCII output directly into a file (for READMEs or config files):
 
 ```bash
-asciiglitch text "MY APP" --font block --output banner.txt
+asciiphreak text "MY APP" --font block --output banner.txt
 ```
 
 ---
@@ -99,7 +99,7 @@ asciiglitch text "MY APP" --font block --output banner.txt
 Unlock watermark removal and custom font packs by activating your Polar license key:
 
 ```bash
-asciiglitch comment "HEADER" --license polar_cl_YOUR_POLAR_KEY
+asciiphreak comment "HEADER" --license polar_cl_YOUR_POLAR_KEY
 ```
 
 👉 **[Get Pro License on Polar](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)**

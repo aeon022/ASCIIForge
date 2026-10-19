@@ -1,5 +1,5 @@
 {
-  "name": "asciiglitch",
+  "name": "asciiphreak",
   "version": "0.2.0",
   "description": "ASCII art banners for terminals, READMEs and source files: gradients, borders, comment blocks in 25+ languages, start-up snippets",
   "keywords": [
@@ -16,16 +16,17 @@
     "hacker",
     "header",
     "motd",
+    "phreak",
     "readme",
     "terminal"
   ],
-  "homepage": "https://github.com/aeon022/asciiglitch#readme",
+  "homepage": "https://github.com/aeon022/asciiphreak#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aeon022/asciiglitch.git"
+    "url": "git+https://github.com/aeon022/asciiphreak.git"
   },
   "bugs": {
-    "url": "https://github.com/aeon022/asciiglitch/issues"
+    "url": "https://github.com/aeon022/asciiphreak/issues"
   },
   "author": "abteilung83 <hello@abteilung83.com>",
   "license": "MIT",
@@ -34,7 +35,7 @@
   },
   "main": "dist/index.js",
   "bin": {
-    "asciiglitch": "dist/index.js"
+    "asciiphreak": "dist/index.js"
   },
   "files": [
     "dist/**/*",

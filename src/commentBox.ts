@@ -42,7 +42,7 @@ export function resolveLanguage(name: string): string {
   return canonical;
 }
 
-const WATERMARK = '[Crafted with asciiglitch by abteilung83]';
+const WATERMARK = '[Crafted with asciiphreak by abteilung83]';
 
 /**
  * Wraps ASCII art in a comment of the given language. Sequences inside the art that would close the

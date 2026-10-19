@@ -53,15 +53,15 @@ For each tool below:
 
 ---
 
-### 4. 🎨 asciiglitch
-- **Repository**: [https://github.com/aeon022/asciiglitch](https://github.com/aeon022/asciiglitch)
+### 4. 🎨 asciiphreak
+- **Repository**: [https://github.com/aeon022/asciiphreak](https://github.com/aeon022/asciiphreak)
 - **Target Price**: $15 One-time / Lifetime
 - **Status**: ⏳ **Action Needed in Polar Dashboard**
 - **To-Do**:
-  - [ ] Create Product "asciiglitch Pro" on Polar.sh
+  - [ ] Create Product "asciiphreak Pro" on Polar.sh
   - [ ] Enable License Key Generation on purchase
   - [ ] Paste checkout URL into `README.md` & `TUTORIAL.md`
-  - [ ] Test activation command: `asciiglitch license polar_cl_...`
+  - [ ] Test activation command: `asciiphreak license polar_cl_...`
 
 ---
 

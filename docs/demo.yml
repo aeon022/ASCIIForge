@@ -1,16 +1,16 @@
-title: asciiglitch
+title: asciiphreak
 theme: tokyonight
 prompt: starship
 cols: 74
 rows: 30
 typeSpeed: 35
 steps:
-  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiglitch/dist/index.js text 'Hello' -f Slant -c '#ff0080,#00f0ff' 2>/dev/null"
-    show: asciiglitch text Hello -c "#ff0080,#00f0ff"
+  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiphreak/dist/index.js text 'Hello' -f Slant -c '#ff0080,#00f0ff' 2>/dev/null"
+    show: asciiphreak text Hello -c "#ff0080,#00f0ff"
     pause: 600
-  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiglitch/dist/index.js text 'v0.2' -f Standard -c rainbow --border round --pad 2 2>/dev/null"
-    show: asciiglitch text v0.2 -c rainbow --border round
+  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiphreak/dist/index.js text 'v0.2' -f Standard -c rainbow --border round --pad 2 2>/dev/null"
+    show: asciiphreak text v0.2 -c rainbow --border round
     pause: 800
-  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiglitch/dist/index.js text 'glitch' -f Standard -c '#00ff9c,#00b3ff' --glitch 0.45 --seed 7 2>/dev/null"
-    show: asciiglitch text glitch -c "#00ff9c,#00b3ff" --glitch 0.45
+  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/asciiphreak/dist/index.js text 'glitch' -f Standard -c '#00ff9c,#00b3ff' --glitch 0.45 --seed 7 2>/dev/null"
+    show: asciiphreak text glitch -c "#00ff9c,#00b3ff" --glitch 0.45
     pause: 800

@@ -56,12 +56,12 @@ const BUY_URL = 'https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe
 (0, color_1.configureColorSupport)();
 const program = new commander_1.Command();
 program
-    .name('asciiglitch')
+    .name('asciiphreak')
     .description('ASCII art banners for terminals, READMEs and source files: colours and gradients, borders, comment blocks in 25+ languages')
     .version('0.2.0');
 const fail = (err, what = 'Error') => {
     process.exitCode = 1;
-    console.error(`[asciiglitch] ${what}: ${err.message || err}`);
+    console.error(`[asciiphreak] ${what}: ${err.message || err}`);
 };
 const num = (v, name, min, max) => {
     const n = Number(v);
@@ -71,7 +71,7 @@ const num = (v, name, min, max) => {
 };
 async function licensed(options) {
     const check = await (0, license_1.validatePolarLicense)(options.license);
-    console.error(`[asciiglitch] License Status: ${check.message}`);
+    console.error(`[asciiphreak] License Status: ${check.message}`);
     return check.valid;
 }
 const promo = (valid) => {
@@ -89,7 +89,7 @@ async function textOf(arg) {
     if (arg !== undefined)
         return arg;
     if (process.stdin.isTTY)
-        throw new Error('Give the text as an argument, or pipe it in: echo "Hello" | asciiglitch text');
+        throw new Error('Give the text as an argument, or pipe it in: echo "Hello" | asciiphreak text');
     const piped = await readStdin();
     if (piped.trim() === '')
         throw new Error('No text: the argument is missing and nothing was piped in.');
@@ -97,7 +97,7 @@ async function textOf(arg) {
 }
 function bannerOptions(cmd) {
     return cmd
-        .option('-f, --font <name>', 'FIGlet font (or "random"); see `asciiglitch fonts`')
+        .option('-f, --font <name>', 'FIGlet font (or "random"); see `asciiphreak fonts`')
         .option('--layout <mode>', 'Letter spacing: default, full, fitted or smush')
         .option('--width <n>', 'Wrap the text at this many columns');
 }
@@ -112,11 +112,11 @@ program
     try {
         if (options.clear) {
             await (0, license_1.clearSavedLicense)();
-            console.log('[asciiglitch] Saved license key cleared. Switched to Free Tier.');
+            console.log('[asciiphreak] Saved license key cleared. Switched to Free Tier.');
             return;
         }
         if (key) {
-            console.log('[asciiglitch] Validating license key...');
+            console.log('[asciiphreak] Validating license key...');
             const result = await (0, license_1.saveLicenseKey)(key);
             if (result.valid) {
                 console.log(`\n✨ ${result.message}`);
@@ -131,7 +131,7 @@ program
         }
         const activeKey = await (0, license_1.getSavedLicenseKey)();
         const result = await (0, license_1.validatePolarLicense)(activeKey);
-        console.log('\n[asciiglitch] License Status:');
+        console.log('\n[asciiphreak] License Status:');
         console.log(`  State : ${result.valid ? 'PRO ACTIVE ✓' : 'FREE TIER'}`);
         console.log(`  Key   : ${activeKey ? (0, license_1.maskKey)(activeKey) : 'None'}`);
         console.log(`  Info  : ${result.message}`);
@@ -190,7 +190,7 @@ bannerOptions(program.command('text [text]').description('Draw a text banner (th
 });
 // ── comment ───────────────────────────────────────────────────────────────────
 bannerOptions(program.command('comment <text>').description('Write a banner as a code comment block, or put it into a file'))
-    .option('-L, --language <lang>', 'Comment syntax (see `asciiglitch languages`); with --insert it follows the file extension')
+    .option('-L, --language <lang>', 'Comment syntax (see `asciiphreak languages`); with --insert it follows the file extension')
     .option('-o, --output <path>', 'Save the comment block to a file')
     .option('--insert <file>', 'Insert the block into this source file')
     .option('--at <where>', 'With --insert: top (default, after a #! line), bottom, or a line number')
@@ -291,9 +291,9 @@ program
             console.log(`\n${shown.length} of ${fonts.length} fonts shown${fonts.length > shown.length ? ' (raise --limit or add a filter)' : ''}.\n`);
             return;
         }
-        console.log(`\n🎨 asciiglitch Fonts (${fonts.length}${filter ? ` matching "${filter}" of ${all.length}` : ' available'}):\n`);
+        console.log(`\n🎨 asciiphreak Fonts (${fonts.length}${filter ? ` matching "${filter}" of ${all.length}` : ' available'}):\n`);
         fonts.forEach((font) => console.log(`  - ${font}`));
-        console.log('\nUse any of these with: asciiglitch text "Hello" -f "<font name>"  (or -f random)\n');
+        console.log('\nUse any of these with: asciiphreak text "Hello" -f "<font name>"  (or -f random)\n');
     }
     catch (err) {
         fail(err);
@@ -301,7 +301,7 @@ program
 });
 program
     .command('languages')
-    .description('List the comment languages `asciiglitch comment` can write')
+    .description('List the comment languages `asciiphreak comment` can write')
     .action(() => {
     console.log(commentBox_1.SUPPORTED_LANGUAGES.join('\n'));
 });
@@ -327,7 +327,7 @@ program
     .option('-c, --color <spec>', 'Colour', 'rainbow')
     .action(async (options) => {
     try {
-        const raw = await (0, textBanner_1.renderAsciiText)('asciiglitch', 'Slant');
+        const raw = await (0, textBanner_1.renderAsciiText)('asciiphreak', 'Slant');
         console.log((0, color_1.colorizeAnsi)((0, layout_1.trimRight)(raw.split('\n')), (0, color_1.parseColor)(options.color)));
         console.log('   Crafted with 💜 by abteilung83\n');
     }
