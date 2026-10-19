@@ -1,109 +1,81 @@
-# 🎨 asciiphreak — Comprehensive Tutorial & How-To Guide
+# asciiphreak tutorial
 
-Welcome to the **asciiphreak** tutorial! This guide covers real-world setup recipes, CLI commands, code comment generation, and font customization options.
+Every command below is copy-and-paste. New to the terminal? Run **`asciiphreak wizard`**: it asks a few questions, shows you the command and runs it.
 
----
-
-## 📚 Table of Contents
-
-1. [Quick Installation](#1-quick-installation)
-2. [Workflow 1: Creating ASCII Banners for CLI Tools & Startup Screens](#workflow-1-creating-ascii-banners-for-cli-tools--startup-screens)
-3. [Workflow 2: Generating Code Comment Section Headers](#workflow-2-generating-code-comment-section-headers)
-4. [Workflow 3: Saving ASCII Art to Text Files](#workflow-3-saving-ascii-art-to-text-files)
-5. [Workflow 4: Exploring Font Styles & Color Presets](#workflow-4-exploring-font-styles--color-presets)
-6. [Pro License Activation](#pro-license-activation)
-
----
-
-## 1. Quick Installation
-
-Install asciiphreak globally via npm:
+## 1. Install
 
 ```bash
 git clone https://github.com/aeon022/asciiphreak.git && cd asciiphreak && npm install --omit=dev && npm install -g .
 ```
 
-Or run via `npx`:
+Keep the `asciiphreak` folder (the command points to it). Try without installing: `npx github:aeon022/asciiphreak demo`.
+
+## 2. Your first banner
 
 ```bash
-npx github:aeon022/asciiphreak demo
+asciiphreak text "Hello" -f slant -c neon
+asciiphreak text "Hello" -c "#ff0080,#00f0ff" --border round
 ```
 
----
+Colours: `neon fire rainbow cyan magenta green yellow red plain`, a hex colour, or a gradient `"#from,#to"` (`--direction horizontal|vertical|diagonal`).
 
-## Workflow 1: Creating ASCII Banners for CLI Tools & Startup Screens
-
-To render a vibrant ASCII title banner for your CLI app:
+## 3. A comment block for your source code
 
 ```bash
-asciiphreak text "ttyreel" --font slant --color neon
+asciiphreak comment "CORE UTILS" -L ts
+asciiphreak comment "DATA PIPELINE" -L python
+asciiphreak comment "NAVIGATION" -L html
+asciiphreak languages          # all 25+ languages
 ```
 
----
-
-## Workflow 2: Generating Code Comment Section Headers
-
-You can generate valid comment blocks for your source code files in TypeScript, Python, HTML, Rust, or CSS:
-
-### TypeScript / JavaScript:
-```bash
-asciiphreak comment "CORE UTILS" --language typescript
-```
-
-### Python (`""" ... """`):
-```bash
-asciiphreak comment "DATA PIPELINE" --language python
-```
-
-### HTML (`<!-- ... -->`):
-```bash
-asciiphreak comment "NAVIGATION" --language html
-```
-
----
-
-## Workflow 3: Saving ASCII Art to Text Files
-
-Save the plain ASCII output directly into a file (for READMEs or config files):
+Put it straight into a file (top, bottom or a line number); `--tag` makes a re-run replace the block instead of adding another:
 
 ```bash
-asciiphreak text "MY APP" --font block --output banner.txt
+asciiphreak comment "MY APP" --insert src/app.js --tag header
 ```
 
----
-
-## Workflow 4: Exploring Font Styles & Color Presets
-
-### Recommended Fonts (`-f` / `--font`)
-- `Slant` (Sleek modern angular)
-- `Standard` (Bold classic)
-- `Block` (Heavy 3D block text)
-- `ANSI Shadow` (Retro shadow text)
-- `3D-ASCII` (3D outline style)
-- `Star Wars` (Sci-fi styled font)
-
-### Color Presets (`-c` / `--color`)
-- `neon` (Cyan + Magenta alternating lines)
-- `fire` (Red + Yellow alternating lines)
-- `cyan`
-- `magenta`
-- `green`
-- `yellow`
-- `red`
-- `plain`
-
----
-
-## Pro License Activation
-
-Unlock watermark removal and custom font packs by activating your Polar license key:
+## 4. Print a banner when your app starts
 
 ```bash
-asciiphreak comment "HEADER" --license polar_cl_YOUR_POLAR_KEY
+asciiphreak snippet "MY APP" -L js      # js ts python go rust shell
+asciiphreak motd "MY SERVER"            # login banner with host, system, uptime
 ```
 
-👉 **[Get Pro License on Polar](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)**
+## 5. Fonts
 
----
+```bash
+asciiphreak fonts block --preview       # fonts containing "block", drawn
+asciiphreak text "Hello" -f random      # surprise me
+```
 
-Crafted with 💜 by **abteilung83**.
+## 6. Save it
+
+```bash
+asciiphreak text "MY APP" -o banner.txt   # also .svg .html .md
+asciiphreak text "MY APP" --copy          # to the clipboard
+```
+
+## 7. Glitch effect
+
+```bash
+asciiphreak text "SIGNAL LOST" --glitch 0.3 --seed 7
+```
+
+## 8. Project defaults
+
+```bash
+asciiphreak init     # writes .asciiphreakrc.json (font, colour, language …)
+```
+
+Personal defaults for every project: `~/.config/asciiphreak/defaults.json`.
+
+## Pro licence
+
+Free: everything. Without a licence, **comment blocks** carry a small "Crafted with asciiphreak" line. A Pro licence removes it:
+
+```bash
+asciiphreak license <your-key>
+asciiphreak license --status
+```
+
+👉 [Get asciiphreak Pro on Polar](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)

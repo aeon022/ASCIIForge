@@ -51,6 +51,7 @@ const output_1 = require("./output");
 const config_1 = require("./config");
 const insert_1 = require("./insert");
 const glitch_1 = require("./glitch");
+const wizard_1 = require("./wizard");
 const snippet_1 = require("./snippet");
 const BUY_URL = 'https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS';
 (0, color_1.configureColorSupport)();
@@ -335,4 +336,8 @@ program
         fail(err);
     }
 });
+program
+    .command('wizard')
+    .description('Step-by-step assistant: answers a few questions, shows the command and runs it')
+    .action(() => (0, wizard_1.wizard)().catch((err) => fail(err)));
 program.parse(process.argv);

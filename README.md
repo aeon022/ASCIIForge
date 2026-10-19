@@ -57,6 +57,8 @@ npm install --omit=dev
 npm install -g .
 ```
 
+New to the terminal? Run `asciiphreak wizard`: it asks a few questions, shows the command and runs it.
+
 ### 2. Text banners
 ```bash
 asciiphreak text "Hello"                                      # neon, Slant

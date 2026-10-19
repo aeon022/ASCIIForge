@@ -143,3 +143,10 @@ test('--glitch corrupts the banner, --seed repeats it, and the border stays clea
   assert.match(run('text', 'Hi', '--glitch', '5').stderr, /--glitch must be a number between 0 and 1/);
   assert.match(run('text', 'Hi', '--glitch', '0.5', '--seed', '-1').stderr, /--seed must be a number/);
 });
+
+test('wizard asks, shows the equivalent command and runs it', () => {
+  const r = spawnSync('node', [bin, 'wizard'], { env: { ...process.env, HOME: home, NO_COLOR: '1', LANG: 'en_US.UTF-8', POLAR_LICENSE_KEY: '' }, input: '1\nHi\n\n9\n1\n\n\nn\n', encoding: 'utf8' });
+  assert.strictEqual(r.status, 0);
+  assert.match(r.stderr, /asciiphreak text Hi -f Slant -c plain/);
+  assert.ok(r.stdout.trim().length > 0);
+});

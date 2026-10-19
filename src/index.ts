@@ -13,6 +13,7 @@ import { writeBanner, copyToClipboard } from './output';
 import { loadDefaults, PROJECT_FILE, TEMPLATE } from './config';
 import { insertBlock, parsePosition } from './insert';
 import { glitch, parseIntensity } from './glitch';
+import { wizard } from './wizard';
 import { makeSnippet, parseSnippetLanguage, SNIPPET_LANGUAGES } from './snippet';
 
 const BUY_URL = 'https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS';
@@ -298,5 +299,10 @@ program
       fail(err);
     }
   });
+
+program
+  .command('wizard')
+  .description('Step-by-step assistant: answers a few questions, shows the command and runs it')
+  .action(() => wizard().catch((err) => fail(err)));
 
 program.parse(process.argv);
