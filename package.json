@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",
-    "test": "tsc && node --test test/license.test.js",
+    "test": "tsc && node --test test/license.test.js test/comment.test.js test/cli.test.js",
     "watch": "tsc -w",
     "start": "ts-node src/index.ts"
   },

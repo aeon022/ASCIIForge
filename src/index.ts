@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import figlet from 'figlet';
 import { renderAsciiText, applyColorPreset } from './textBanner';
-import { wrapInCodeComment } from './commentBox';
+import { wrapInCodeComment, SUPPORTED_LANGUAGES } from './commentBox';
 import { validatePolarLicense, saveLicenseKey, clearSavedLicense, getSavedLicenseKey, maskKey } from './license';
 import { ColorPreset, CommentLanguage } from './types';
 
@@ -70,7 +70,7 @@ program
   .action(async (text, options) => {
     try {
       const licenseCheck = await validatePolarLicense(options.license);
-      console.log(`[ASCIIForge] License Status: ${licenseCheck.message}\n`);
+      console.error(`[ASCIIForge] License Status: ${licenseCheck.message}`);
 
       const rawAscii = await renderAsciiText(text, options.font);
       const coloredAscii = applyColorPreset(rawAscii, options.color as ColorPreset);
@@ -80,11 +80,11 @@ program
       if (options.output) {
         const outputPath = path.resolve(options.output);
         await fs.writeFile(outputPath, rawAscii, 'utf8');
-        console.log(`\n✨ Saved ASCII banner to: ${outputPath}`);
+        console.error(`✨ Saved ASCII banner to: ${outputPath}`);
       }
 
       if (!licenseCheck.valid) {
-        console.log('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS');
+        console.error('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS');
       }
     } catch (err: any) {
       process.exitCode = 1;
@@ -97,7 +97,7 @@ program
   .command('comment <text>')
   .description('Generate formatted code comment block for source files')
   .option('-f, --font <name>', 'FIGlet font name', 'Slant')
-  .option('-lang, --language <lang>', 'Comment syntax: typescript, python, html, css, rust', 'typescript')
+  .option('-L, --language <lang>', 'Comment syntax (see `ascii-forge languages`)', 'typescript')
   .option('-o, --output <path>', 'Save output to file')
   .option('-l, --license <key>', 'Polar.sh Pro License Key')
   .action(async (text, options) => {
@@ -111,11 +111,11 @@ program
       if (options.output) {
         const outputPath = path.resolve(options.output);
         await fs.writeFile(outputPath, commentBlock, 'utf8');
-        console.log(`\n✨ Saved comment block to: ${outputPath}`);
+        console.error(`✨ Saved comment block to: ${outputPath}`);
       }
 
       if (!licenseCheck.valid) {
-        console.log('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS');
+        console.error('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS');
       }
     } catch (err: any) {
       process.exitCode = 1;
@@ -125,13 +125,22 @@ program
 
 // Fonts List Command
 program
-  .command('fonts')
-  .description('List all available FIGlet fonts')
-  .action(() => {
-    const allFonts = figlet.fontsSync().sort((a, b) => a.localeCompare(b));
-    console.log(`\n🎨 ASCIIForge Fonts (${allFonts.length} available):\n`);
-    allFonts.forEach((font) => console.log(`  - ${font}`));
+  .command('fonts [filter]')
+  .description('List the available FIGlet fonts (optionally only those containing a word)')
+  .action((filter?: string) => {
+    const all = figlet.fontsSync().sort((a, b) => a.localeCompare(b));
+    const fonts = filter ? all.filter((f) => f.toLowerCase().includes(filter.toLowerCase())) : all;
+    console.log(`\n🎨 ASCIIForge Fonts (${fonts.length}${filter ? ` matching "${filter}" of ${all.length}` : ' available'}):\n`);
+    fonts.forEach((font) => console.log(`  - ${font}`));
     console.log('\nUse any of these with: ascii-forge text "Hello" -f "<font name>"\n');
+  });
+
+// Languages Command
+program
+  .command('languages')
+  .description('List the comment languages `ascii-forge comment` can write')
+  .action(() => {
+    console.log(SUPPORTED_LANGUAGES.join('\n'));
   });
 
 // Demo Command

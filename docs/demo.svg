@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="750" height="481" viewBox="0 0 750 481" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F260"/>
+      <stop offset="100%" stop-color="#0575E6"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  
+  <rect width="750" height="481" fill="url(#bgGrad)" rx="12"/>
+  <g filter="url(#shadow)">
+    <rect x="35" y="35" width="680" height="386" rx="10" fill="#282a36"/>
+    <path d="M35 45 C35 39 39 35 45 35 L705 35 C711 35 715 39 715 45 L715 71 L35 71 Z" fill="#21222c"/>
+    <circle cx="53" cy="53" r="6" fill="#FF5F56"/>
+    <circle cx="73" cy="53" r="6" fill="#FFBD2E"/>
+    <circle cx="93" cy="53" r="6" fill="#27C93F"/>
+    <text x="375" y="57" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-size="12px" font-weight="600" fill="#f8f8f2" opacity="0.75">ascii-forge</text>
+  </g>
+  <g xml:space="preserve">
+    <text x="55" y="95" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#8be9fd" font-weight="bold">    ___   _____ ____________________                    </tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="115" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#ff79c6" font-weight="bold">   /   | / ___// ____/  _/  _/ ____/___  _________ ____ </tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="135" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#8be9fd" font-weight="bold">  / /| | \__ \/ /    / / / // /_  / __ \/ ___/ __ `/ _ \</tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="155" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#ff79c6" font-weight="bold"> / ___ |___/ / /____/ /_/ // __/ / /_/ / /  / /_/ /  __/</tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="175" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#8be9fd" font-weight="bold">/_/  |_/____/\____/___/___/_/    \____/_/   \__, /\___/ </tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="195" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#ff79c6" font-weight="bold">                                           /____/       </tspan><tspan fill="#f8f8f2">              </tspan></text>
+    <text x="55" y="215" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2">/*                                                                    </tspan></text>
+    <text x="55" y="235" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> *    __________  ____  ______                                        </tspan></text>
+    <text x="55" y="255" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> *   / ____/ __ \/ __ \/ ____/                                        </tspan></text>
+    <text x="55" y="275" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> *  / /   / / / / /_/ / __/                                           </tspan></text>
+    <text x="55" y="295" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> * / /___/ /_/ / _, _/ /___                                           </tspan></text>
+    <text x="55" y="315" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> * \____/\____/_/ |_/_____/                                           </tspan></text>
+    <text x="55" y="335" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> * [Crafted with ASCIIForge by abteilung83]                           </tspan></text>
+    <text x="55" y="355" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2"> */                                                                   </tspan></text>
+    <text x="55" y="375" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2">                                                                      </tspan></text>
+    <text x="55" y="395" font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14px"><tspan fill="#f8f8f2">                                                                      </tspan></text>
+  </g>
+  
+    <g transform="translate(540, 466)">
+      <text font-family="-apple-system, system-ui, sans-serif" font-size="11px" fill="#888888">
+        Crafted with <tspan fill="#0066FF" font-weight="bold">TermCast</tspan>
+      </text>
+    </g>
+  
+</svg>
