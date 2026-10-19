@@ -1,5 +1,6 @@
 # 🎨 asciiphreak: ASCII art for hackers, READMEs and source files
 
+[![npm](https://img.shields.io/npm/v/asciiphreak.svg)](https://www.npmjs.com/package/asciiphreak)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Support on Polar](https://img.shields.io/badge/Support_asciiphreak-Polar-0066FF.svg?style=flat-square&logo=polar)](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)
 [![Created by abteilung83](https://img.shields.io/badge/Crafted%20by-abteilung83-black.svg)](https://github.com/aeon022)
@@ -42,20 +43,13 @@
 ## 🚀 Quickstart
 
 ### 1. Installation
-Needs Node 18+. Try it without installing:
+Needs Node 18+.
 
 ```bash
-npx github:aeon022/asciiphreak text "Hello"
+npm install -g asciiphreak
 ```
 
-Install it (keep the cloned folder: the global command links to it):
-
-```bash
-git clone https://github.com/aeon022/asciiphreak.git
-cd asciiphreak
-npm install --omit=dev
-npm install -g .
-```
+Or try it without installing: `npx asciiphreak text "Hello"`.
 
 New to the terminal? Run `asciiphreak wizard`: it asks a few questions, shows the command and runs it.
 

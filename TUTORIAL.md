@@ -5,10 +5,10 @@ Every command below is copy-and-paste. New to the terminal? Run **`asciiphreak w
 ## 1. Install
 
 ```bash
-git clone https://github.com/aeon022/asciiphreak.git && cd asciiphreak && npm install --omit=dev && npm install -g .
+npm install -g asciiphreak
 ```
 
-Keep the `asciiphreak` folder (the command points to it). Try without installing: `npx github:aeon022/asciiphreak demo`.
+Try without installing: `npx asciiphreak demo`.
 
 ## 2. Your first banner
 
