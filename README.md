@@ -34,12 +34,19 @@
 ## 🚀 Quickstart & Tutorial
 
 ### 1. Installation
-Install straight from GitHub (needs Node 18+; the package builds itself on install):
+Needs Node 18+. Try it without installing:
 
 ```bash
-npm install -g github:aeon022/ASCIIForge
-# or run once without installing:
 npx github:aeon022/ASCIIForge text "Hello"
+```
+
+Install it (keep the cloned folder: the global command links to it):
+
+```bash
+git clone https://github.com/aeon022/ASCIIForge.git
+cd ASCIIForge
+npm install --omit=dev
+npm install -g .
 ```
 
 ### 2. Generate ASCII Text Banner

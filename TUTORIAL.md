@@ -20,7 +20,7 @@ Welcome to the **ASCIIForge** tutorial! This guide covers real-world setup recip
 Install ASCIIForge globally via npm:
 
 ```bash
-npm install -g github:aeon022/ASCIIForge
+git clone https://github.com/aeon022/ASCIIForge.git && cd ASCIIForge && npm install --omit=dev && npm install -g .
 ```
 
 Or run via `npx`:
