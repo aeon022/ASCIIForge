@@ -20,7 +20,7 @@ For each tool below:
 
 ### 1. 🌉 JoplinBridge
 - **Repository**: [https://github.com/aeon022/JoplinBridge](https://github.com/aeon022/JoplinBridge)
-- **Polar Checkout URL**: `https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH`
+- **Polar Checkout URL**: `https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS`
 - **Status**: ✅ **ACTIVE & LINKED**
 - **To-Do**:
   - [x] Product created on Polar.sh

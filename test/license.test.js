@@ -25,7 +25,7 @@ test('a server error is not reported as an invalid key', async () => {
 });
 
 test('a valid answer unlocks Pro and keys are masked', async () => {
-  reply = { status: 200, ok: true, body: { status: 'granted', benefit_id: 'b1' } };
+  reply = { status: 200, ok: true, body: { status: 'granted', benefit_id: 'eed1cde1-f785-47d2-a64e-15b8d0f92957' } };
   assert.strictEqual((await validatePolarLicense('some-key')).valid, true);
   assert.strictEqual(maskKey('abcd-efgh-ijkl-mnop'), 'abcd…mnop');
   assert.strictEqual(maskKey('short'), '****');
@@ -42,4 +42,11 @@ test('a saved key validated today needs no network, an offline check keeps a rec
   assert.strictEqual((await validatePolarLicense()).valid, true); // stale, Polar down: grace period
   write(new Date(Date.now() - 40 * 86400000).toISOString());
   assert.strictEqual((await validatePolarLicense()).valid, false); // beyond the grace period
+});
+
+test('a key of another product does not unlock this tool', async () => {
+  reply = { status: 200, ok: true, body: { status: 'granted', benefit_id: '00000000-0000-0000-0000-000000000000' } };
+  const r = await validatePolarLicense('some-key');
+  assert.strictEqual(r.valid, false);
+  assert.match(r.message, /does not include/);
 });

@@ -102,7 +102,7 @@ Unlock watermark removal and custom font packs by activating your Polar license 
 ascii-forge comment "HEADER" --license polar_cl_YOUR_POLAR_KEY
 ```
 
-👉 **[Get Pro License on Polar](https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH)**
+👉 **[Get Pro License on Polar](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)**
 
 ---
 
