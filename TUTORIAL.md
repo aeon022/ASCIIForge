@@ -20,13 +20,13 @@ Welcome to the **ASCIIForge** tutorial! This guide covers real-world setup recip
 Install ASCIIForge globally via npm:
 
 ```bash
-npm install -g ascii-forge
+npm install -g github:aeon022/ASCIIForge
 ```
 
 Or run via `npx`:
 
 ```bash
-npx ascii-forge demo
+npx github:aeon022/ASCIIForge demo
 ```
 
 ---
