@@ -59,7 +59,7 @@ const program = new commander_1.Command();
 program
     .name('asciiphreak')
     .description('ASCII art banners for terminals, READMEs and source files: colours and gradients, borders, comment blocks in 25+ languages')
-    .version('0.2.1');
+    .version('0.2.2');
 const fail = (err, what = 'Error') => {
     process.exitCode = 1;
     console.error(`[asciiphreak] ${what}: ${err.message || err}`);

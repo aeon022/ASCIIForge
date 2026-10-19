@@ -1,6 +1,6 @@
 {
   "name": "asciiphreak",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "ASCII art banners for terminals, READMEs and source files: gradients, borders, comment blocks in 25+ languages, start-up snippets",
   "keywords": [
     "ascii",
@@ -41,6 +41,8 @@
     "dist/**/*",
     "!dist/**/*.test.js",
     "README.md",
+    "TUTORIAL.md",
+    "TESTEN.md",
     "LICENSE",
     "THIRD_PARTY_NOTICES.md"
   ],
