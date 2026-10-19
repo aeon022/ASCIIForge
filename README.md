@@ -1,6 +1,5 @@
 # 🎨 ASCIIForge: ASCII Art & Terminal Banner Studio
 
-[![npm version](https://img.shields.io/npm/v/ascii-forge.svg)](https://www.npmjs.com/package/ascii-forge)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Support on Polar](https://img.shields.io/badge/Support_ASCIIForge-Polar-0066FF.svg?style=flat-square&logo=polar)](https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH)
 [![Created by abteilung83](https://img.shields.io/badge/Crafted%20by-abteilung83-black.svg)](https://github.com/aeon022)
@@ -24,17 +23,19 @@
 - 🌈 **8 ANSI Color Presets**: `neon`, `fire`, `cyan`, `magenta`, `green`, `yellow`, `red`, `plain`.
 - 💬 **Code Comment Block Generator**: Wraps ASCII banners in valid source code comments (`/* ... */`, `"""..."""`, `<!-- ... -->`).
 - 🚀 **Pure JS, No Native Dependencies**: No compiled/native modules to install — blazing fast rendering in under 10 milliseconds.
-- 🔑 **Polar.sh Pro License**: Unlock un-watermarked comments & custom font packs via Polar checkout.
+- 🔑 **Polar.sh Pro License**: Support the project via Polar and remove the watermark from generated comment blocks.
 
 ---
 
 ## 🚀 Quickstart & Tutorial
 
 ### 1. Installation
-Install globally via npm or run directly using `npx`:
+Install straight from GitHub (needs Node 18+; the package builds itself on install):
 
 ```bash
-npm install -g ascii-forge
+npm install -g github:aeon022/ASCIIForge
+# or run once without installing:
+npx github:aeon022/ASCIIForge text "Hello"
 ```
 
 ### 2. Generate ASCII Text Banner

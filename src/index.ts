@@ -5,7 +5,7 @@ import * as path from 'path';
 import figlet from 'figlet';
 import { renderAsciiText, applyColorPreset } from './textBanner';
 import { wrapInCodeComment } from './commentBox';
-import { validatePolarLicense, saveLicenseKey, clearSavedLicense, getSavedLicenseKey } from './license';
+import { validatePolarLicense, saveLicenseKey, clearSavedLicense, getSavedLicenseKey, maskKey } from './license';
 import { ColorPreset, CommentLanguage } from './types';
 
 const program = new Command();
@@ -31,7 +31,7 @@ program
       }
 
       if (key) {
-        console.log(`[ASCIIForge] Validating license key: ${key}...`);
+        console.log('[ASCIIForge] Validating license key...');
         const result = await saveLicenseKey(key);
         if (result.valid) {
           console.log(`\n✨ ${result.message}`);
@@ -48,12 +48,13 @@ program
       const result = await validatePolarLicense(activeKey);
       console.log('\n[ASCIIForge] License Status:');
       console.log(`  State : ${result.valid ? 'PRO ACTIVE ✓' : 'FREE TIER'}`);
-      console.log(`  Key   : ${activeKey ? activeKey : 'None'}`);
+      console.log(`  Key   : ${activeKey ? maskKey(activeKey) : 'None'}`);
       console.log(`  Info  : ${result.message}`);
       if (!result.valid) {
         console.log('\n💡 Buy Pro License: https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH\n');
       }
     } catch (err: any) {
+      process.exitCode = 1;
       console.error(`[ASCIIForge] License error: ${err.message}`);
     }
   });
@@ -83,9 +84,10 @@ program
       }
 
       if (!licenseCheck.valid) {
-        console.log('\n💡 Unlock Pro fonts & custom export: https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH');
+        console.log('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH');
       }
     } catch (err: any) {
+      process.exitCode = 1;
       console.error(`[ASCIIForge] Error: ${err.message}`);
     }
   });
@@ -113,9 +115,10 @@ program
       }
 
       if (!licenseCheck.valid) {
-        console.log('\n💡 Unlock Pro un-watermarked comments: https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH');
+        console.log('\n💡 Support development and remove the comment watermark: https://buy.polar.sh/polar_cl_BN6xwyJH2Drn6WuzvV49E2KCGauvtoTHixD3w1hCpSH');
       }
     } catch (err: any) {
+      process.exitCode = 1;
       console.error(`[ASCIIForge] Error: ${err.message}`);
     }
   });
@@ -143,6 +146,7 @@ program
       console.log(colored);
       console.log('   Crafted with 💜 by abteilung83\n');
     } catch (err: any) {
+      process.exitCode = 1;
       console.error(`[ASCIIForge] Error: ${err.message}`);
     }
   });
