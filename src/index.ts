@@ -24,7 +24,7 @@ const program = new Command();
 program
   .name('asciiphreak')
   .description('ASCII art banners for terminals, READMEs and source files: colours and gradients, borders, comment blocks in 25+ languages')
-  .version('0.2.0');
+  .version('0.2.1');
 
 const fail = (err: any, what = 'Error') => {
   process.exitCode = 1;
