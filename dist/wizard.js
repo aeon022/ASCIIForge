@@ -44,7 +44,8 @@ const BORDERS = ['none', 'single', 'double', 'round', 'bold'];
 const LANGS = ['js', 'ts', 'python', 'go', 'rust', 'shell'];
 /** Step-by-step helper for beginners: asks, shows the exact command, runs it. */
 async function wizard() {
-    const lines = readline.createInterface({ input: process.stdin, output: process.stderr })[Symbol.asyncIterator]();
+    const rl = readline.createInterface({ input: process.stdin, output: process.stderr });
+    const lines = rl[Symbol.asyncIterator]();
     const ask = async (question, def = '') => {
         process.stderr.write(`${question}${def ? ` [${def}]` : ''} › `);
         const { value, done } = await lines.next();
@@ -118,5 +119,8 @@ async function wizard() {
     catch (e) {
         if (e.message !== 'end')
             throw e;
+    }
+    finally {
+        rl.close();
     }
 }
