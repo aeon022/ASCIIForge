@@ -1,0 +1,12 @@
+title: ascii-forge
+theme: tokyonight
+prompt: starship
+cols: 74
+typeSpeed: 35
+steps:
+  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/ASCIIForge/dist/index.js text 'Hello' -f Slant -c '#ff0080,#00f0ff' 2>/dev/null"
+    show: ascii-forge text Hello -c "#ff0080,#00f0ff"
+    pause: 600
+  - cmd: "FORCE_COLOR=3 node /Users/gweiher/Developing/Projects/ASCIIForge/dist/index.js text 'v0.2' -f Standard -c rainbow --border round --pad 2 2>/dev/null"
+    show: ascii-forge text v0.2 -c rainbow --border round
+    pause: 800

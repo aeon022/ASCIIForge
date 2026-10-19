@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.suggestFont = suggestFont;
+exports.parseLayout = parseLayout;
 exports.renderAsciiText = renderAsciiText;
 exports.applyColorPreset = applyColorPreset;
 const figlet_1 = __importDefault(require("figlet"));
@@ -35,19 +36,41 @@ function editDistance(a, b) {
     }
     return prev[b.length];
 }
+const LAYOUTS = {
+    default: 'default',
+    full: 'full',
+    fitted: 'fitted',
+    smush: 'controlled smushing'
+};
+function parseLayout(name) {
+    const n = name.trim().toLowerCase();
+    if (n in LAYOUTS)
+        return n;
+    throw new Error(`Unknown layout "${name}". Use default, full, fitted or smush.`);
+}
 /**
  * Renders text with a FIGlet font. An unknown font is an error that names the closest installed font;
  * silently drawing something else hid typos (`-f Slnt` produced a different font without a word).
+ * The font name `random` picks one of the installed fonts.
  */
-function renderAsciiText(text, fontName = 'Slant') {
+function renderAsciiText(text, fontName = 'Slant', options = {}) {
     return new Promise((resolve, reject) => {
         const installed = figlet_1.default.fontsSync();
-        const exact = installed.find((f) => f.toLowerCase() === fontName.toLowerCase());
+        const exact = fontName.toLowerCase() === 'random'
+            ? installed[Math.floor(Math.random() * installed.length)]
+            : installed.find((f) => f.toLowerCase() === fontName.toLowerCase());
         if (!exact) {
             const hint = suggestFont(fontName);
             return reject(new Error(`Unknown font "${fontName}".${hint ? ` Did you mean "${hint}"?` : ''} List all fonts with: ascii-forge fonts`));
         }
-        figlet_1.default.text(text, { font: exact }, (err, result) => {
+        const opts = { font: exact };
+        if (options.layout && options.layout !== 'default')
+            opts.horizontalLayout = LAYOUTS[options.layout];
+        if (options.width) {
+            opts.width = options.width;
+            opts.whitespaceBreak = true;
+        }
+        figlet_1.default.text(text, opts, (err, result) => {
             if (err || !result)
                 return reject(err || new Error('FIGlet rendering failed'));
             resolve(result);

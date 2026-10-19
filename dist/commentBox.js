@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SUPPORTED_LANGUAGES = void 0;
 exports.resolveLanguage = resolveLanguage;
 exports.wrapInCodeComment = wrapInCodeComment;
+exports.lineComment = lineComment;
+exports.languageForFile = languageForFile;
 const C_BLOCK = { block: { open: '/*', prefix: ' * ', close: ' */' }, escapes: [[/\*\//g, '* /']] };
 const HASH = { line: '# ' };
 const DASH = { line: '-- ' };
@@ -53,4 +55,28 @@ function wrapInCodeComment(asciiArt, lang = 'typescript', watermark = true) {
     }
     const prefix = syntax.line;
     return lines.map((l) => (prefix + l).replace(/\s+$/, '')).join('\n') + '\n';
+}
+/** One line of text as a comment of the language (used for markers); `--` is neutralised where it would end the comment. */
+function lineComment(lang, text) {
+    const syntax = SYNTAX[resolveLanguage(lang)];
+    let t = text;
+    for (const [re, to] of syntax.escapes || [])
+        t = t.replace(re, to);
+    if (syntax.block)
+        return syntax.block.open === '<!--' ? `<!-- ${t} -->` : `${syntax.block.open} ${t} ${syntax.block.close.trim()}`;
+    return `${syntax.line}${t}`;
+}
+const EXTENSIONS = {
+    ts: 'typescript', tsx: 'typescript', mts: 'typescript', js: 'javascript', jsx: 'javascript', mjs: 'javascript', cjs: 'javascript',
+    py: 'python', rb: 'ruby', rs: 'rust', go: 'go', java: 'java', c: 'c', h: 'c', cpp: 'cpp', cc: 'cpp', hpp: 'cpp', cs: 'csharp',
+    php: 'php', swift: 'swift', kt: 'kotlin', css: 'css', scss: 'scss', sh: 'shell', bash: 'shell', zsh: 'shell', yml: 'yaml', yaml: 'yaml',
+    toml: 'toml', sql: 'sql', lua: 'lua', html: 'html', htm: 'html', xml: 'xml', svg: 'xml', md: 'markdown', markdown: 'markdown'
+};
+/** The comment language for a file name (by extension), if the tool knows it. */
+function languageForFile(file) {
+    const base = file.split(/[\\/]/).pop() || '';
+    if (base.toLowerCase() === 'dockerfile')
+        return 'dockerfile';
+    const ext = base.includes('.') ? base.split('.').pop().toLowerCase() : '';
+    return EXTENSIONS[ext];
 }

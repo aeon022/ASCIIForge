@@ -31,19 +31,46 @@ function editDistance(a: string, b: string): number {
   return prev[b.length];
 }
 
+export type Layout = 'default' | 'full' | 'fitted' | 'smush';
+
+const LAYOUTS: Record<Layout, string> = {
+  default: 'default',
+  full: 'full',
+  fitted: 'fitted',
+  smush: 'controlled smushing'
+};
+
+export function parseLayout(name: string): Layout {
+  const n = name.trim().toLowerCase();
+  if (n in LAYOUTS) return n as Layout;
+  throw new Error(`Unknown layout "${name}". Use default, full, fitted or smush.`);
+}
+
+export interface FigletOptions {
+  layout?: Layout;
+  /** wrap the text at this many columns (the banner may be narrower) */
+  width?: number;
+}
+
 /**
  * Renders text with a FIGlet font. An unknown font is an error that names the closest installed font;
  * silently drawing something else hid typos (`-f Slnt` produced a different font without a word).
+ * The font name `random` picks one of the installed fonts.
  */
-export function renderAsciiText(text: string, fontName: string = 'Slant'): Promise<string> {
+export function renderAsciiText(text: string, fontName: string = 'Slant', options: FigletOptions = {}): Promise<string> {
   return new Promise((resolve, reject) => {
     const installed = figlet.fontsSync();
-    const exact = installed.find((f) => f.toLowerCase() === fontName.toLowerCase());
+    const exact = fontName.toLowerCase() === 'random'
+      ? installed[Math.floor(Math.random() * installed.length)]
+      : installed.find((f) => f.toLowerCase() === fontName.toLowerCase());
     if (!exact) {
       const hint = suggestFont(fontName);
       return reject(new Error(`Unknown font "${fontName}".${hint ? ` Did you mean "${hint}"?` : ''} List all fonts with: ascii-forge fonts`));
     }
-    figlet.text(text, { font: exact as any }, (err, result) => {
+    const opts: any = { font: exact };
+    if (options.layout && options.layout !== 'default') opts.horizontalLayout = LAYOUTS[options.layout];
+    if (options.width) { opts.width = options.width; opts.whitespaceBreak = true; }
+    figlet.text(text, opts, (err, result) => {
       if (err || !result) return reject(err || new Error('FIGlet rendering failed'));
       resolve(result);
     });

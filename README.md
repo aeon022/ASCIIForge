@@ -4,9 +4,9 @@
 [![Support on Polar](https://img.shields.io/badge/Support_ASCIIForge-Polar-0066FF.svg?style=flat-square&logo=polar)](https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS)
 [![Created by abteilung83](https://img.shields.io/badge/Crafted%20by-abteilung83-black.svg)](https://github.com/aeon022)
 
-![ASCIIForge demo](docs/demo.svg)
+![ASCIIForge demo](docs/demo.png)
 
-*Made with ASCIIForge and [ttyreel](https://github.com/aeon022/ttyreel).*
+*Made with ASCIIForge and [ttyreel](https://github.com/aeon022/ttyreel) (`ttyreel play docs/demo.yml`).*
 
 ```text
     ___   _____ ____________________                    
@@ -23,15 +23,20 @@
 
 ## ✨ Features
 
-- 🔤 **300+ ASCII Fonts**: Powered by FIGlet's full bundled font library — includes popular picks like `Slant`, `Standard`, `Block`, `ANSI Shadow`, `3D-ASCII`, `Star Wars`, and hundreds more (run `ascii-forge fonts` for the full list).
-- 🌈 **8 ANSI Color Presets**: `neon`, `fire`, `cyan`, `magenta`, `green`, `yellow`, `red`, `plain`.
-- 💬 **Code Comment Block Generator**: Wraps ASCII banners in valid comments for 25+ languages (`/* … */`, `#`, `--`, `<!-- … -->`); sequences that could close the comment early are neutralised.
-- 🚀 **Pure JS, No Native Dependencies**: No compiled/native modules to install — blazing fast rendering in under 10 milliseconds.
-- 🔑 **Polar.sh Pro License**: Support the project via Polar and remove the watermark from generated comment blocks.
+- 🔤 **328 FIGlet fonts**, with `-f random`, a preview (`fonts shadow --preview "Hi"`) and typo suggestions.
+- 🌈 **Colours and gradients:** presets (`neon`, `fire`, `rainbow`, `cyan` …), a hex colour, or a gradient across any number of colours (`-c "#ff0080,#00f0ff"`), horizontal, vertical or diagonal. `NO_COLOR` is respected.
+- 📐 **Layout:** `--border single|double|round|bold|ascii`, `--align center|right`, `--width` (wraps the text), `--layout full|fitted|smush` (letter spacing).
+- 💬 **Comment blocks for 25+ languages**, safe against sequences that would close the comment early. `--insert file.py --tag hero` puts the block into a file and updates it on the next run instead of adding another.
+- 🚀 **Start-up snippets** (`snippet`): code that prints your banner when an app starts (JS, TS, Python, Go, Rust, shell).
+- 🖥️ **Login banners** (`motd`): banner plus host, system and uptime.
+- 💾 **Files:** `-o banner.svg` / `.html` keep the colours, `.md` wraps it in a code block, anything else is plain text. `--copy` puts it on the clipboard.
+- ⚙️ **Defaults per project or user** in `.asciiforgerc.json` (`ascii-forge init`).
+- 🧪 **Pipe-friendly:** the banner is the only thing on stdout, text can be piped in, errors exit with code 1.
+- 🔑 **Polar.sh Pro:** support the project and remove the watermark from generated comment blocks.
 
 ---
 
-## 🚀 Quickstart & Tutorial
+## 🚀 Quickstart
 
 ### 1. Installation
 Needs Node 18+. Try it without installing:
@@ -49,21 +54,22 @@ npm install --omit=dev
 npm install -g .
 ```
 
-### 2. Generate ASCII Text Banner
-Generate a colored ASCII banner in your terminal:
-
+### 2. Text banners
 ```bash
-ascii-forge text "Hello" --font slant --color neon
-
-# the banner is the only thing on stdout, so this works:
-ascii-forge text "Hello" --color plain > banner.txt
+ascii-forge text "Hello"                                      # neon, Slant
+ascii-forge text "Hello" -f "ANSI Shadow" -c "#ff0080,#00f0ff"  # gradient
+ascii-forge text "v1.0" -c rainbow --border round --align center --width 60
+echo "Release day" | ascii-forge text -c fire                 # from a pipe
+ascii-forge text "Hello" -c plain > banner.txt                # stdout is only the art
+ascii-forge text "Hello" -c "#ff0080,#00f0ff" -o banner.svg   # coloured SVG
+ascii-forge text "Hello" --copy                               # clipboard
 ```
 
-### 3. Generate Formatted Code Comments
-Generate ASCII section headers directly formatted as code comments:
-
+### 3. Code comments
 ```bash
-ascii-forge comment "SYNC ENGINE" --language typescript >> src/sync.ts
+ascii-forge comment "SYNC ENGINE" -L typescript >> src/sync.ts       # print / append
+ascii-forge comment "SYNC ENGINE" --insert src/sync.ts --tag hero    # put it in, update on re-run
+ascii-forge comment "DATA PIPELINE" --insert pipeline.py --at 3      # at line 3 (language from the extension)
 ```
 
 Output (the watermark line is removed by a Pro licence):
@@ -78,15 +84,30 @@ Output (the watermark line is removed by a Pro licence):
  */
 ```
 
-`--language` (`-L`) knows TypeScript/JavaScript, C, C++, C#, Java, Go, Rust, Swift, Kotlin, PHP, CSS/SCSS (block comments), Python, shell, YAML, Ruby, TOML, Dockerfile (`#`), SQL, Lua (`--`), HTML, Markdown and XML. Run `ascii-forge languages` for the list with aliases (`ts`, `py`, `sh`, `yml` …). The art is made safe for the language: a `*` followed by `/` or `-->` inside the art cannot close the comment early.
+`--language` (`-L`) knows TypeScript/JavaScript, C, C++, C#, Java, Go, Rust, Swift, Kotlin, PHP, CSS/SCSS (block comments), Python, shell, YAML, Ruby, TOML, Dockerfile (`#`), SQL, Lua (`--`), HTML, Markdown and XML; `ascii-forge languages` lists them with aliases (`ts`, `py`, `sh`, `yml` …). With `--tag`, the block sits between `ascii-forge:begin NAME` and `ascii-forge:end NAME` comment lines; do not edit between them. A `#!` line stays first.
 
-### 4. Find a font
+### 4. Start-up banner and login banner
 ```bash
-ascii-forge fonts          # all of them
-ascii-forge fonts shadow   # only names containing "shadow"
+ascii-forge snippet "MyApp" -L python     # prints code that shows the banner when your app starts
+ascii-forge motd "my-server"              # banner + host · OS · uptime, for ~/.bashrc or /etc/motd
 ```
 
-A misspelled font is an error with a suggestion (`Did you mean "Slant"?`), not a silent different font. The licence status and the Pro hint go to stderr, so redirecting stdout always gives you just the art. Errors exit with code 1.
+### 5. Fonts
+```bash
+ascii-forge fonts                          # all of them
+ascii-forge fonts shadow --preview "Hi"    # draw each font whose name contains "shadow"
+ascii-forge text "Hi" -f random            # surprise me
+```
+A misspelled font is an error with a suggestion (`Did you mean "Slant"?`), not a silent different font.
+
+### 6. Project defaults
+```bash
+ascii-forge init      # writes .asciiforgerc.json
+```
+```json
+{ "font": "Slant", "color": "neon", "language": "typescript", "align": "left", "border": "none", "pad": 1 }
+```
+Settings are read from `~/.config/ascii-forge/defaults.json`, then from the nearest `.asciiforgerc.json` up the folder tree; flags win. A typo in the file is an error that names it.
 
 ---
 
