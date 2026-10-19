@@ -48,11 +48,11 @@ const os = __importStar(require("os"));
 // aeon022's Polar.sh organization (public: customers need it to validate keys, no secret involved).
 const POLAR_ORG_ID = 'aa792ea4-650e-492e-a955-9b3d564e943e';
 const POLAR_VALIDATE_URL = 'https://api.polar.sh/v1/customer-portal/license-keys/validate';
-// Polar benefit that unlocks this tool: the "ASCIIForge Pro" product (family keys come from it too).
+// Polar benefit that unlocks this tool: the "asciiglitch Pro" product (family keys come from it too).
 const ALLOWED_BENEFIT_IDS = ['eed1cde1-f785-47d2-a64e-15b8d0f92957'];
 const RECHECK_MS = 24 * 60 * 60 * 1000; // a saved key is re-validated at most once a day
 const OFFLINE_GRACE_MS = 21 * 24 * 60 * 60 * 1000; // ... and keeps working this long without reaching Polar
-const CONFIG_DIR = path.join(os.homedir(), '.config', 'ascii-forge');
+const CONFIG_DIR = path.join(os.homedir(), '.config', 'asciiglitch');
 const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 async function readConfig() {
     try {
@@ -99,7 +99,7 @@ async function checkWithPolar(cleanKey) {
             if (ALLOWED_BENEFIT_IDS.length === 0 || ALLOWED_BENEFIT_IDS.includes(data.benefit_id)) {
                 return { valid: true, message: 'PRO LICENSE ACTIVE (verified via Polar.sh)', licenseKey: cleanKey };
             }
-            return { valid: false, message: 'This license key does not include ASCIIForge Pro.', licenseKey: cleanKey };
+            return { valid: false, message: 'This license key does not include asciiglitch Pro.', licenseKey: cleanKey };
         }
         return { valid: false, message: 'INVALID LICENSE KEY', licenseKey: cleanKey };
     }

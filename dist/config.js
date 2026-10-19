@@ -41,7 +41,7 @@ const path = __importStar(require("path"));
 const os = __importStar(require("os"));
 const STRING_KEYS = ['font', 'color', 'language', 'align', 'border', 'layout'];
 const NUMBER_KEYS = ['pad', 'width'];
-exports.PROJECT_FILE = '.asciiforgerc.json';
+exports.PROJECT_FILE = '.asciiglitchrc.json';
 function parseDefaults(raw, file) {
     if (!raw || typeof raw !== 'object' || Array.isArray(raw))
         throw new Error(`${file}: expected a JSON object`);
@@ -83,9 +83,9 @@ function readFile(file) {
         throw err;
     }
 }
-/** The user's defaults (~/.config/ascii-forge/defaults.json) overridden by the nearest project file walking up from `cwd`. */
+/** The user's defaults (~/.config/asciiglitch/defaults.json) overridden by the nearest project file walking up from `cwd`. */
 function loadDefaults(cwd = process.cwd(), home = os.homedir()) {
-    const user = readFile(path.join(home, '.config', 'ascii-forge', 'defaults.json')) || {};
+    const user = readFile(path.join(home, '.config', 'asciiglitch', 'defaults.json')) || {};
     let dir = path.resolve(cwd);
     let project = {};
     for (;;) {

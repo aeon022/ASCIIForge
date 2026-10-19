@@ -61,7 +61,7 @@ function renderAsciiText(text, fontName = 'Slant', options = {}) {
             : installed.find((f) => f.toLowerCase() === fontName.toLowerCase());
         if (!exact) {
             const hint = suggestFont(fontName);
-            return reject(new Error(`Unknown font "${fontName}".${hint ? ` Did you mean "${hint}"?` : ''} List all fonts with: ascii-forge fonts`));
+            return reject(new Error(`Unknown font "${fontName}".${hint ? ` Did you mean "${hint}"?` : ''} List all fonts with: asciiglitch fonts`));
         }
         const opts = { font: exact };
         if (options.layout && options.layout !== 'default')

@@ -53,15 +53,15 @@ For each tool below:
 
 ---
 
-### 4. 🎨 ASCIIForge
-- **Repository**: [https://github.com/aeon022/ASCIIForge](https://github.com/aeon022/ASCIIForge)
+### 4. 🎨 asciiglitch
+- **Repository**: [https://github.com/aeon022/asciiglitch](https://github.com/aeon022/asciiglitch)
 - **Target Price**: $15 One-time / Lifetime
 - **Status**: ⏳ **Action Needed in Polar Dashboard**
 - **To-Do**:
-  - [ ] Create Product "ASCIIForge Pro" on Polar.sh
+  - [ ] Create Product "asciiglitch Pro" on Polar.sh
   - [ ] Enable License Key Generation on purchase
   - [ ] Paste checkout URL into `README.md` & `TUTORIAL.md`
-  - [ ] Test activation command: `ascii-forge license polar_cl_...`
+  - [ ] Test activation command: `asciiglitch license polar_cl_...`
 
 ---
 

@@ -94,8 +94,8 @@ test('comment --insert puts the block into a file; with --tag it is replaced, no
   r = run('comment', 'TWO', '--insert', file, '--tag', 'hero', '-f', 'Standard');
   assert.match(r.stderr, /Replaced the tagged block/);
   const text = fs.readFileSync(file, 'utf8');
-  assert.ok(text.startsWith('#!/usr/bin/env python3\n# ascii-forge:begin hero\n'), 'language came from .py, the shebang stays first');
-  assert.strictEqual((text.match(/ascii-forge:begin hero/g) || []).length, 1);
+  assert.ok(text.startsWith('#!/usr/bin/env python3\n# asciiglitch:begin hero\n'), 'language came from .py, the shebang stays first');
+  assert.strictEqual((text.match(/asciiglitch:begin hero/g) || []).length, 1);
   assert.ok(text.endsWith('print("hi")\n'));
   assert.strictEqual(spawnSync('python3', ['-c', 'import ast,sys; ast.parse(open(sys.argv[1]).read())', file]).status, 0, 'the file still parses');
   assert.match(run('comment', 'X', '--insert', file, '-o', 'y').stderr, /either --insert or --output/);
@@ -113,12 +113,12 @@ test('snippet prints runnable code; motd adds a system line; init writes default
   const proj = fs.mkdtempSync(path.join(os.tmpdir(), 'af-proj-'));
   assert.strictEqual(runIn(proj, ['init']).status, 0);
   assert.strictEqual(runIn(proj, ['init']).status, 1);
-  assert.match(fs.readFileSync(path.join(proj, '.asciiforgerc.json'), 'utf8'), /"font": "Slant"/);
-  fs.writeFileSync(path.join(proj, '.asciiforgerc.json'), JSON.stringify({ font: 'Standard', color: 'plain', border: 'single' }));
+  assert.match(fs.readFileSync(path.join(proj, '.asciiglitchrc.json'), 'utf8'), /"font": "Slant"/);
+  fs.writeFileSync(path.join(proj, '.asciiglitchrc.json'), JSON.stringify({ font: 'Standard', color: 'plain', border: 'single' }));
   const withCfg = runIn(proj, ['text', 'Hi']);
   assert.ok(withCfg.stdout.startsWith('┌'), 'the project file set the border');
   assert.strictEqual(runIn(proj, ['text', 'Hi', '--border', 'none']).stdout.includes('┌'), false, 'flags beat the file');
-  fs.writeFileSync(path.join(proj, '.asciiforgerc.json'), '{"colour": "x"}');
+  fs.writeFileSync(path.join(proj, '.asciiglitchrc.json'), '{"colour": "x"}');
   assert.match(runIn(proj, ['text', 'Hi']).stderr, /unknown setting "colour"/);
 });
 
@@ -127,4 +127,19 @@ test('fonts --preview draws samples and says how many were left out', () => {
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual((r.stdout.match(/^── /gm) || []).length, 2);
   assert.match(r.stdout, /2 of \d+ fonts shown/);
+});
+
+test('--glitch corrupts the banner, --seed repeats it, and the border stays clean', () => {
+  const plain = run('text', 'Hi', '-c', 'plain', '-f', 'Standard').stdout;
+  const a = run('text', 'Hi', '-c', 'plain', '-f', 'Standard', '--glitch', '0.8', '--seed', '9');
+  const b = run('text', 'Hi', '-c', 'plain', '-f', 'Standard', '--glitch', '0.8', '--seed', '9');
+  assert.strictEqual(a.status, 0, a.stderr);
+  assert.strictEqual(a.stdout, b.stdout);
+  assert.notStrictEqual(a.stdout, plain);
+  assert.strictEqual(a.stdout.split('\n').length, plain.split('\n').length);
+  const boxed = run('text', 'Hi', '-c', 'plain', '--border', 'single', '--glitch', '1', '--seed', '3').stdout.split('\n').filter(Boolean);
+  assert.match(boxed[0], /^┌─+┐$/);
+  assert.match(boxed[boxed.length - 1], /^└─+┘$/);
+  assert.match(run('text', 'Hi', '--glitch', '5').stderr, /--glitch must be a number between 0 and 1/);
+  assert.match(run('text', 'Hi', '--glitch', '0.5', '--seed', '-1').stderr, /--seed must be a number/);
 });

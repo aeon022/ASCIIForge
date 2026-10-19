@@ -33,7 +33,7 @@ function resolveLanguage(name) {
     }
     return canonical;
 }
-const WATERMARK = '[Crafted with ASCIIForge by abteilung83]';
+const WATERMARK = '[Crafted with asciiglitch by abteilung83]';
 /**
  * Wraps ASCII art in a comment of the given language. Sequences inside the art that would close the
  * comment early (the block terminator `*` followed by `/`, or `-->`) are neutralised so the result always compiles, and trailing blanks are

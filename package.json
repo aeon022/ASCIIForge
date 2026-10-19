@@ -1,28 +1,31 @@
 {
-  "name": "ascii-forge",
+  "name": "asciiglitch",
   "version": "0.2.0",
   "description": "ASCII art banners for terminals, READMEs and source files: gradients, borders, comment blocks in 25+ languages, start-up snippets",
   "keywords": [
     "ascii",
     "ascii-art",
-    "figlet",
     "banner",
     "cli",
-    "terminal",
-    "gradient",
     "comment",
+    "cyberpunk",
+    "developer-tools",
+    "figlet",
+    "glitch",
+    "gradient",
+    "hacker",
     "header",
     "motd",
     "readme",
-    "developer-tools"
+    "terminal"
   ],
-  "homepage": "https://github.com/aeon022/ASCIIForge#readme",
+  "homepage": "https://github.com/aeon022/asciiglitch#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aeon022/ASCIIForge.git"
+    "url": "git+https://github.com/aeon022/asciiglitch.git"
   },
   "bugs": {
-    "url": "https://github.com/aeon022/ASCIIForge/issues"
+    "url": "https://github.com/aeon022/asciiglitch/issues"
   },
   "author": "abteilung83 <hello@abteilung83.com>",
   "license": "MIT",
@@ -31,8 +34,7 @@
   },
   "main": "dist/index.js",
   "bin": {
-    "ascii-forge": "dist/index.js",
-    "asciiforge": "dist/index.js"
+    "asciiglitch": "dist/index.js"
   },
   "files": [
     "dist/**/*",

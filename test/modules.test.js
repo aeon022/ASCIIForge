@@ -58,8 +58,8 @@ test('config: validation, user then project precedence, nearest project file win
   const home = fs.mkdtempSync(path.join(os.tmpdir(), 'af-home-'));
   const proj = path.join(home, 'work', 'app', 'src');
   fs.mkdirSync(proj, { recursive: true });
-  fs.mkdirSync(path.join(home, '.config', 'ascii-forge'), { recursive: true });
-  fs.writeFileSync(path.join(home, '.config', 'ascii-forge', 'defaults.json'), JSON.stringify({ font: 'Big', color: 'cyan' }));
+  fs.mkdirSync(path.join(home, '.config', 'asciiglitch'), { recursive: true });
+  fs.writeFileSync(path.join(home, '.config', 'asciiglitch', 'defaults.json'), JSON.stringify({ font: 'Big', color: 'cyan' }));
   fs.writeFileSync(path.join(home, 'work', PROJECT_FILE), JSON.stringify({ color: 'fire', border: 'round' }));
   fs.writeFileSync(path.join(home, 'work', 'app', PROJECT_FILE), JSON.stringify({ border: 'double' }));
   assert.deepStrictEqual(loadDefaults(proj, home), { font: 'Big', color: 'cyan', border: 'double' });
@@ -75,10 +75,10 @@ test('insert: top (after a shebang), bottom, line, and tagged blocks are replace
   assert.strictEqual(insertBlock('', block, 'python').content, '# AB\n');
   const first = insertBlock('code\n', block, 'python', 'top', 'hero');
   assert.strictEqual(first.action, 'inserted');
-  assert.match(first.content, /^# ascii-forge:begin hero\n# AB\n# ascii-forge:end hero\ncode\n$/);
+  assert.match(first.content, /^# asciiglitch:begin hero\n# AB\n# asciiglitch:end hero\ncode\n$/);
   const again = insertBlock(first.content, wrapInCodeComment('CD', 'python', false), 'python', 'bottom', 'hero');
   assert.strictEqual(again.action, 'replaced');
-  assert.strictEqual(again.content, '# ascii-forge:begin hero\n# CD\n# ascii-forge:end hero\ncode\n');
+  assert.strictEqual(again.content, '# asciiglitch:begin hero\n# CD\n# asciiglitch:end hero\ncode\n');
   assert.strictEqual((again.content.match(/begin hero/g) || []).length, 1);
   assert.strictEqual(insertBlock('a\r\nb\r\n', block, 'python', 'bottom').content, 'a\r\nb\r\n# AB\r\n', 'line endings are kept');
   assert.throws(() => insertBlock('x', block, 'python', 'top', 'bad tag'), /Invalid --tag/);
@@ -133,4 +133,31 @@ test('clipboard: uses the first tool that works, explains when there is none', a
     await assert.rejects(copyToClipboard('x', 'linux'), /No clipboard tool found \(tried wl-copy, xclip, xsel\)/);
     await assert.rejects(copyToClipboard('x', 'plan9'), /not supported on plan9/);
   } finally { process.env.PATH = oldPath; }
+});
+
+const { glitch, rng, parseIntensity, GLITCH_CHARS } = require('../dist/glitch');
+
+test('glitch: intensity 0 changes nothing, a seed makes it repeatable, rows stay rows', () => {
+  const art = ['  ___  ', ' / _ \\ ', '| (_) |', ' \\___/ '];
+  assert.deepStrictEqual(glitch(art, 0, 1), art);
+  assert.deepStrictEqual(glitch(art, 0.6, 42), glitch(art, 0.6, 42));
+  assert.notDeepStrictEqual(glitch(art, 0.6, 42), glitch(art, 0.6, 43));
+  const out = glitch(art, 1, 7);
+  assert.strictEqual(out.length, art.length);
+  assert.ok(Math.max(...out.map((l) => l.length)) <= Math.max(...art.map((l) => l.length)) + 4, 'never wider than 4 columns more');
+  assert.notDeepStrictEqual(out, art);
+  const allowed = new Set([...' _/\\|()', ...GLITCH_CHARS]);
+  for (const l of out) for (const c of l) assert.ok(allowed.has(c), `unexpected character ${JSON.stringify(c)}`);
+});
+
+test('glitch: the generator is deterministic and uniform enough; intensity is validated', () => {
+  const a = rng(5), b = rng(5);
+  assert.deepStrictEqual([a(), a(), a()], [b(), b(), b()]);
+  const r = rng(1);
+  const xs = Array.from({ length: 2000 }, r);
+  assert.ok(xs.every((x) => x >= 0 && x < 1));
+  assert.ok(Math.abs(xs.reduce((s, x) => s + x, 0) / xs.length - 0.5) < 0.05);
+  assert.strictEqual(parseIntensity('0.3'), 0.3);
+  assert.throws(() => parseIntensity('2'), /--glitch must be a number between 0 and 1/);
+  assert.throws(() => parseIntensity('x'), /--glitch must be/);
 });

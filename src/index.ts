@@ -12,6 +12,7 @@ import { addBorder, alignBlock, parseAlign, parseBorder, trimRight } from './lay
 import { writeBanner, copyToClipboard } from './output';
 import { loadDefaults, PROJECT_FILE, TEMPLATE } from './config';
 import { insertBlock, parsePosition } from './insert';
+import { glitch, parseIntensity } from './glitch';
 import { makeSnippet, parseSnippetLanguage, SNIPPET_LANGUAGES } from './snippet';
 
 const BUY_URL = 'https://buy.polar.sh/polar_cl_bicrfkUYm0tKq6steUcsbooPO6v02OBbe96lA4WqqSS';
@@ -20,14 +21,13 @@ configureColorSupport();
 
 const program = new Command();
 program
-  .name('ascii-forge')
-  .alias('asciiforge')
+  .name('asciiglitch')
   .description('ASCII art banners for terminals, READMEs and source files: colours and gradients, borders, comment blocks in 25+ languages')
   .version('0.2.0');
 
 const fail = (err: any, what = 'Error') => {
   process.exitCode = 1;
-  console.error(`[ASCIIForge] ${what}: ${err.message || err}`);
+  console.error(`[asciiglitch] ${what}: ${err.message || err}`);
 };
 
 const num = (v: any, name: string, min: number, max: number): number => {
@@ -38,7 +38,7 @@ const num = (v: any, name: string, min: number, max: number): number => {
 
 async function licensed(options: any): Promise<boolean> {
   const check = await validatePolarLicense(options.license);
-  console.error(`[ASCIIForge] License Status: ${check.message}`);
+  console.error(`[asciiglitch] License Status: ${check.message}`);
   return check.valid;
 }
 
@@ -55,7 +55,7 @@ async function readStdin(): Promise<string> {
 /** The text of a banner: the argument, or piped input when there is none. */
 async function textOf(arg: string | undefined): Promise<string> {
   if (arg !== undefined) return arg;
-  if (process.stdin.isTTY) throw new Error('Give the text as an argument, or pipe it in: echo "Hello" | ascii-forge text');
+  if (process.stdin.isTTY) throw new Error('Give the text as an argument, or pipe it in: echo "Hello" | asciiglitch text');
   const piped = await readStdin();
   if (piped.trim() === '') throw new Error('No text: the argument is missing and nothing was piped in.');
   return piped;
@@ -63,7 +63,7 @@ async function textOf(arg: string | undefined): Promise<string> {
 
 function bannerOptions(cmd: Command): Command {
   return cmd
-    .option('-f, --font <name>', 'FIGlet font (or "random"); see `ascii-forge fonts`')
+    .option('-f, --font <name>', 'FIGlet font (or "random"); see `asciiglitch fonts`')
     .option('--layout <mode>', 'Letter spacing: default, full, fitted or smush')
     .option('--width <n>', 'Wrap the text at this many columns');
 }
@@ -81,11 +81,11 @@ program
     try {
       if (options.clear) {
         await clearSavedLicense();
-        console.log('[ASCIIForge] Saved license key cleared. Switched to Free Tier.');
+        console.log('[asciiglitch] Saved license key cleared. Switched to Free Tier.');
         return;
       }
       if (key) {
-        console.log('[ASCIIForge] Validating license key...');
+        console.log('[asciiglitch] Validating license key...');
         const result = await saveLicenseKey(key);
         if (result.valid) {
           console.log(`\n✨ ${result.message}`);
@@ -99,7 +99,7 @@ program
       }
       const activeKey = await getSavedLicenseKey();
       const result = await validatePolarLicense(activeKey);
-      console.log('\n[ASCIIForge] License Status:');
+      console.log('\n[asciiglitch] License Status:');
       console.log(`  State : ${result.valid ? 'PRO ACTIVE ✓' : 'FREE TIER'}`);
       console.log(`  Key   : ${activeKey ? maskKey(activeKey) : 'None'}`);
       console.log(`  Info  : ${result.message}`);
@@ -117,6 +117,8 @@ bannerOptions(program.command('text [text]').description('Draw a text banner (th
   .option('--align <side>', 'left, center or right (within --width, or the terminal width)')
   .option('--border <style>', 'Box around the banner: none, single, double, round, bold, ascii')
   .option('--pad <n>', 'Blanks between the border and the letters')
+  .option('--glitch <0-1>', 'Corrupt the banner: shifted rows and broken characters (0.3 is a good start)')
+  .option('--seed <n>', 'With --glitch: the same seed gives the same glitch')
   .option('-o, --output <path>', 'Also save to a file: .svg and .html keep the colours, .md wraps it in a code block, anything else is plain text')
   .option('--copy', 'Copy the banner (without colours) to the clipboard')
   .option('-l, --license <key>', 'Polar.sh Pro License Key')
@@ -137,7 +139,9 @@ bannerOptions(program.command('text [text]').description('Draw a text banner (th
         layout: parseLayout(options.layout ?? d.layout ?? 'default'),
         width: border === 'none' ? width : width === undefined ? undefined : Math.max(10, width - pad * 2 - 2)
       });
-      let lines = addBorder(trimRight(raw.split('\n')).filter((l, i, a) => !(i === a.length - 1 && l === '')), border, pad);
+      let art = trimRight(raw.split('\n')).filter((l, i, a) => !(i === a.length - 1 && l === ''));
+      if (options.glitch !== undefined) art = glitch(art, parseIntensity(options.glitch), options.seed === undefined ? undefined : num(options.seed, 'seed', 0, 4294967295));
+      let lines = addBorder(art, border, pad);
       if (align !== 'left') lines = alignBlock(lines, align, width ?? process.stdout.columns ?? 80);
       console.log(colorizeAnsi(lines, spec));
       if (options.output) console.error(`✨ Saved banner to: ${await writeBanner(options.output, lines, spec)}`);
@@ -150,7 +154,7 @@ bannerOptions(program.command('text [text]').description('Draw a text banner (th
 // ── comment ───────────────────────────────────────────────────────────────────
 
 bannerOptions(program.command('comment <text>').description('Write a banner as a code comment block, or put it into a file'))
-  .option('-L, --language <lang>', 'Comment syntax (see `ascii-forge languages`); with --insert it follows the file extension')
+  .option('-L, --language <lang>', 'Comment syntax (see `asciiglitch languages`); with --insert it follows the file extension')
   .option('-o, --output <path>', 'Save the comment block to a file')
   .option('--insert <file>', 'Insert the block into this source file')
   .option('--at <where>', 'With --insert: top (default, after a #! line), bottom, or a line number')
@@ -251,9 +255,9 @@ program
         console.log(`\n${shown.length} of ${fonts.length} fonts shown${fonts.length > shown.length ? ' (raise --limit or add a filter)' : ''}.\n`);
         return;
       }
-      console.log(`\n🎨 ASCIIForge Fonts (${fonts.length}${filter ? ` matching "${filter}" of ${all.length}` : ' available'}):\n`);
+      console.log(`\n🎨 asciiglitch Fonts (${fonts.length}${filter ? ` matching "${filter}" of ${all.length}` : ' available'}):\n`);
       fonts.forEach((font) => console.log(`  - ${font}`));
-      console.log('\nUse any of these with: ascii-forge text "Hello" -f "<font name>"  (or -f random)\n');
+      console.log('\nUse any of these with: asciiglitch text "Hello" -f "<font name>"  (or -f random)\n');
     } catch (err) {
       fail(err);
     }
@@ -261,7 +265,7 @@ program
 
 program
   .command('languages')
-  .description('List the comment languages `ascii-forge comment` can write')
+  .description('List the comment languages `asciiglitch comment` can write')
   .action(() => {
     console.log(SUPPORTED_LANGUAGES.join('\n'));
   });
@@ -287,7 +291,7 @@ program
   .option('-c, --color <spec>', 'Colour', 'rainbow')
   .action(async (options: any) => {
     try {
-      const raw = await renderAsciiText('ASCIIForge', 'Slant');
+      const raw = await renderAsciiText('asciiglitch', 'Slant');
       console.log(colorizeAnsi(trimRight(raw.split('\n')), parseColor(options.color)));
       console.log('   Crafted with 💜 by abteilung83\n');
     } catch (err) {
